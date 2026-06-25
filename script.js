@@ -1,205 +1,277 @@
-(() => {
-  // ===== DATA =====
-  const SERVICES = [
-    { icon: 'i-home',   title: 'Ремонт квартир под ключ',           img: 'images/s1.jpg', desc: 'Полный цикл — от демонтажа до чистовой отделки и мебели.' },
-    { icon: 'i-build',  title: 'Строительство загородных домов',    img: 'images/s2.jpg', desc: 'Каркасные, кирпичные и каменные дома по индивидуальному проекту.' },
-    { icon: 'i-palette',title: 'Дизайн-проект интерьера',           img: 'images/s3.jpg', desc: 'Авторский дизайн с 3D-визуализацией и подбором материалов.' },
-    { icon: 'i-hammer', title: 'Ремонт офисов',                     img: 'images/s4.jpg', desc: 'Открытые пространства, переговорные, ресепшен — в сроки и бюджет.' },
-    { icon: 'i-store',  title: 'Отделка коммерческих помещений',    img: 'images/s5.jpg', desc: 'Магазины, шоурумы, кафе, салоны — с учётом требований аренды.' },
-    { icon: 'i-wrench', title: 'Электрика, сантехника, инженерия',  img: 'images/s6.jpg', desc: 'Полный комплекс инженерных работ с актами и гарантией.' },
-  ];
+// === DATA ===
+const FACTS = [
+  { v: "С 2014 года", t: "на рынке Москвы и области" },
+  { v: "180+", t: "завершённых квартир в новостройках" },
+  { v: "до 5 лет", t: "гарантия на выполненные работы" },
+  { v: "Каждый день", t: "прораб на связи с заказчиком" },
+];
 
-  const ADV = [
-    { icon: 'i-clock',  title: 'Более 10 лет опыта',          desc: 'Сотни сданных объектов в Москве и Подмосковье.' },
-    { icon: 'i-users',  title: 'Собственная команда мастеров',desc: 'Никаких подрядных бригад с улицы — только наши специалисты.' },
-    { icon: 'i-file',   title: 'Прозрачная смета',            desc: 'Фиксированная цена в договоре, без скрытых расходов.' },
-    { icon: 'i-camera', title: 'Фото- и видеоотчёты',         desc: 'Каждый этап документируем — вы в курсе всех работ.' },
-    { icon: 'i-cal',    title: 'Соблюдение сроков',           desc: 'Прописываем сроки в договоре с финансовой ответственностью.' },
-    { icon: 'i-shield', title: 'Гарантия до 5 лет',           desc: 'Официальная гарантия на все виды работ.' },
-  ];
+const SERVICES = [
+  {
+    icon: "i-sparkles", title: "Косметический ремонт", price: "от 7 500 ₽/м²", term: "Срок: 3–5 недель",
+    includes: ["Подготовка и выравнивание стен", "Поклейка обоев, покраска", "Замена напольных покрытий", "Замена розеток и выключателей"],
+  },
+  {
+    icon: "i-hammer", title: "Капитальный ремонт", price: "от 14 000 ₽/м²", term: "Срок: 2–3 месяца",
+    includes: ["Демонтаж и черновые работы", "Электрика и сантехника под ключ", "Стяжка, штукатурка, выравнивание", "Чистовая отделка и установка дверей"],
+  },
+  {
+    icon: "i-palette", title: "Ремонт под ключ с дизайн-проектом", price: "от 19 000 ₽/м²", term: "Срок: 3–5 месяцев",
+    includes: ["Авторский дизайн-проект с 3D", "Подбор и закупка материалов", "Полный цикл строительных работ", "Расстановка мебели и декор"],
+  },
+];
 
-  const PROJECTS = [
-    { img: 'images/p1.jpg', title: 'Ремонт квартиры в ЖК «Сердце Столицы»', meta: '82 м² · 4 месяца',  desc: 'Современный ремонт с открытой планировкой кухни-гостиной, спальней и кабинетом. Применены итальянская плитка, инженерная доска и встроенная мебель.' },
-    { img: 'images/p2.jpg', title: 'Квартира в современном стиле',          meta: '64 м² · 3 месяца',  desc: 'Лаконичный интерьер в тёплой палитре с акцентом на свет и фактуру натуральных материалов. Полный цикл от демонтажа до меблировки.' },
-    { img: 'images/p3.jpg', title: 'Загородный дом в Подмосковье',          meta: '185 м² · 8 месяцев',desc: 'Дом из газобетона с облицовкой натуральным камнем и деревом. Полный комплекс: фундамент, коробка, кровля, инженерия, отделка.' },
-    { img: 'images/p4.jpg', title: 'Офис для IT-компании',                  meta: '230 м² · 2 месяца', desc: 'Open-space на 40 рабочих мест с переговорными и зоной отдыха. Стеклянные перегородки, акустические панели, дизайнерское освещение.' },
-    { img: 'images/p5.jpg', title: 'Ремонт квартиры для семьи',             meta: '96 м² · 5 месяцев', desc: 'Тёплый семейный интерьер с детской, кабинетом и просторной кухней. Особое внимание уделено эргономике и безопасности материалов.' },
-    { img: 'images/p6.jpg', title: 'Коммерческое помещение',                meta: '140 м² · 2,5 месяца',desc:'Шоурум одежды с авторским светом, бесшовным наливным полом и индивидуальным торговым оборудованием.' },
-  ];
+const PROJECTS = [
+  { img: "assets/p1.jpg", jk: "ЖК «Символ»", type: "Двухкомнатная квартира", area: "68 м²", term: "54 дня", budget: "1,46 млн ₽",
+    task: "Семья с ребёнком въезжала в новостройку. Нужно было сделать капитальный ремонт с зонированием гостиной и детской, заменить инженерные коммуникации и подготовить квартиру к заезду с мебелью." },
+  { img: "assets/p2.jpg", jk: "ЖК «Level Амурская»", type: "Квартира-студия", area: "42 м²", term: "39 дней", budget: "890 тыс. ₽",
+    task: "Студия под сдачу в аренду. Заказчик попросил уложиться в бюджет до 1 млн ₽ и сделать нейтральный универсальный интерьер с практичными материалами и встроенным хранением." },
+  { img: "assets/p3.jpg", jk: "ЖК «Скандинавия»", type: "Трёхкомнатная квартира", area: "83 м²", term: "67 дней", budget: "2,1 млн ₽",
+    task: "Ремонт под ключ с дизайн-проектом. Перепланировка с объединением кухни-гостиной, отдельные спальня и детская, встроенные гардеробные и индивидуальная мебель на заказ." },
+];
 
-  const STEPS = [
-    { n: '01', t: 'Оставляете заявку',           d: 'Заполняете форму или звоните — фиксируем ваш запрос.' },
-    { n: '02', t: 'Специалист связывается с вами',d: 'Уточняем задачу, согласуем удобное время выезда.' },
-    { n: '03', t: 'Замер и подготовка сметы',    d: 'Бесплатный замер на объекте и детальная смета за 3 дня.' },
-    { n: '04', t: 'Договор и начало работ',      d: 'Подписываем договор с фиксированной ценой и сроками.' },
-    { n: '05', t: 'Сдача объекта и гарантия',    d: 'Принимаете готовый объект, получаете гарантию до 5 лет.' },
-  ];
+const PROCESS = [
+  { icon: "i-phone", t: "Заявка и консультация", d: "Уточняем задачу, площадь, тип работ и обсуждаем подходящий формат сотрудничества." },
+  { icon: "i-ruler", t: "Выезд замерщика", d: "Бесплатно выезжаем на объект, делаем обмеры и фиксируем технические особенности квартиры." },
+  { icon: "i-clip", t: "Смета и договор", d: "Готовим детальную смету по этапам, согласуем с вами и подписываем договор с фиксированной ценой." },
+  { icon: "i-truck", t: "Закупка материалов", d: "Подбираем материалы по смете, согласуем с вами и привозим на объект в нужный момент." },
+  { icon: "i-hardhat", t: "Ремонт и контроль прораба", d: "Работы по графику, ежедневный контроль прораба, фотоотчёты и связь с вами на каждом этапе." },
+  { icon: "i-key", t: "Приёмка и гарантия", d: "Сдаём объект, подписываем акт и выдаём гарантию на работы — до 5 лет в зависимости от вида." },
+];
 
-  const REVIEWS = [
-    { n: 'Анна К.',    a: 'Пресненский район', t: 'Делали ремонт двушки 70 м² за 4 месяца — уложились ровно в срок и в смету. Команда аккуратная, каждую неделю присылали отчёт. Рекомендую!' },
-    { n: 'Дмитрий М.', a: 'Хамовники',         t: 'Строили дом в Подмосковье. Понравился системный подход и прозрачность — все материалы согласовывали заранее, никаких сюрпризов по бюджету.' },
-    { n: 'Елена С.',   a: 'Раменки',           t: 'Ремонт офиса 180 м² за 7 недель. Работали по ночам, чтобы не мешать сотрудникам. Качество отделки на высоте, особенно столярка.' },
-    { n: 'Игорь В.',   a: 'Замоскворечье',     t: 'Полный ремонт квартиры с дизайн-проектом. Прораб всегда на связи, любые вопросы решали оперативно. Через год — ни одного нарекания.' },
-  ];
+const TEAM = [
+  { icon: "i-hardhat", role: "Прораб", desc: "Ведёт объект ежедневно, контролирует график, качество и порядок на площадке. Ваша основная точка связи." },
+  { icon: "i-calc", role: "Инженер-сметчик", desc: "Составляет прозрачную смету по этапам, фиксирует объёмы и стоимость работ и материалов в договоре." },
+  { icon: "i-palette", role: "Дизайнер", desc: "Готовит планировку и дизайн-проект с визуализациями, подбирает материалы и комплектацию." },
+  { icon: "i-wrench", role: "Мастера по отделке", desc: "Постоянная штатная бригада: электрика, сантехника, штукатурные и малярные работы, плитка, чистовая отделка." },
+];
 
-  const FAQ = [
-    { q: 'Сколько стоит ремонт квартиры?',         a: 'Стоимость зависит от площади, вида работ и материалов. Косметический ремонт — от 6 500 ₽/м², капитальный — от 12 000 ₽/м², премиум-ремонт под ключ — от 25 000 ₽/м². Точную цену скажем после бесплатного замера.' },
-    { q: 'Можно ли начать ремонт без дизайн-проекта?', a: 'Да, можем работать по эскизам и техническому заданию. Но для сложных интерьеров мы рекомендуем дизайн-проект — он исключает переделки и помогает точно посчитать смету.' },
-    { q: 'Как фиксируется стоимость работ?',       a: 'Цена прописывается в договоре и не меняется в процессе — даже если выросли цены на материалы. Дополнительные работы согласуются отдельным актом и только с вашего согласия.' },
-    { q: 'Кто закупает материалы?',                a: 'На ваш выбор. Можем закупать сами — со скидкой от поставщиков и доставкой на объект. Либо вы покупаете материалы самостоятельно по нашему списку.' },
-    { q: 'Есть ли гарантия?',                      a: 'Да. На черновые работы — 5 лет, на чистовую отделку — 3 года, на инженерные системы — 2 года. Все обязательства прописаны в договоре.' },
-    { q: 'Работаете ли вы по договору?',           a: 'Только по официальному договору с фиксированной сметой, сроками и гарантией. Принимаем оплату на расчётный счёт, выдаём все закрывающие документы.' },
-  ];
+const CONTRACT = [
+  { icon: "i-badge", t: "Стоимость", d: "Фиксированная сумма по смете — не меняется в процессе ремонта." },
+  { icon: "i-cal", t: "Сроки", d: "Дата начала и сдачи объекта прописаны в договоре." },
+  { icon: "i-file", t: "Этапы оплаты", d: "Поэтапная оплата по факту выполненных работ, без авансов за весь объект." },
+  { icon: "i-shield", t: "Гарантия", d: "До 5 лет на работы — обязательства зафиксированы письменно." },
+  { icon: "i-user", t: "Ответственность сторон", d: "Чёткие обязательства подрядчика и заказчика — без размытых формулировок." },
+];
 
-  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
-  const $ = (s, r = document) => r.querySelector(s);
-  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const REVIEWS = [
+  { name: "Анна К.", area: "ЖК «Символ», 2-комн.", text: "Делали капитальный ремонт двушки 68 м². Понравилось, что смету согласовали один раз и она не выросла. Каждый день получали фото с объекта." },
+  { name: "Дмитрий М.", area: "ЖК «Level Амурская», студия", text: "Студия под аренду, бюджет был ограничен. Уложились в смету и сроки, всё закупили сами, я приехал только на приёмку." },
+  { name: "Елена С.", area: "ЖК «Скандинавия», 3-комн.", text: "Ремонт под ключ с дизайн-проектом. Прораб всегда был на связи, материалы согласовывали в чате, ничего лишнего не навязывали." },
+  { name: "Игорь В.", area: "ЖК в Новой Москве, 1-комн.", text: "Сделали однушку 38 м² в новостройке за 6 недель. Договор с фиксированной ценой, поэтапная оплата — для меня это было главное." },
+];
 
-  // ===== RENDER =====
-  $('#services-grid').innerHTML = SERVICES.map((s) => `
-    <article class="card svc reveal">
-      <div class="img"><img src="${s.img}" alt="${esc(s.title)}" loading="lazy" width="1000" height="750"/></div>
-      <div class="pad">
-        <div class="hd"><span class="ic-box"><svg class="ic"><use href="#${s.icon}"/></svg></span><h3>${esc(s.title)}</h3></div>
-        <p class="desc">${esc(s.desc)}</p>
-        <button class="more" data-scroll="#calculator">Подробнее <svg class="ic-sm"><use href="#i-arrow"/></svg></button>
+const FAQ = [
+  { q: "Работаете ли вы с квартирами в новостройках без отделки?", a: "Да, это наш основной профиль. Делаем ремонт в квартирах от застройщика — от чернового состояния и White Box до сдачи под ключ с мебелью." },
+  { q: "Как фиксируется стоимость работ?", a: "Стоимость прописывается в договоре по утверждённой смете и не меняется в процессе. Любые дополнительные работы согласуются отдельным актом и только с вашего согласия." },
+  { q: "Кто закупает материалы?", a: "На ваш выбор. Можем закупать сами по согласованной смете и привозить на объект, либо вы покупаете материалы самостоятельно по нашему списку." },
+  { q: "Нужен ли дизайн-проект?", a: "Не обязательно. Для косметического и капитального ремонта достаточно технического задания. Для сложных интерьеров и перепланировок дизайн-проект экономит бюджет и исключает переделки." },
+  { q: "Какая гарантия на работы?", a: "До 5 лет на черновые работы, 3 года на чистовую отделку, 2 года на инженерные системы. Все обязательства прописаны в договоре." },
+  { q: "Можно ли посмотреть действующий объект?", a: "Да, по согласованию с заказчиком можем организовать просмотр одного из текущих объектов в Москве или области, чтобы вы увидели качество работ вживую." },
+];
+
+// === HELPERS ===
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const ic = (n) => `<svg class="icon"><use href="#${n}"/></svg>`;
+
+// === RENDER ===
+$("#facts").innerHTML = FACTS.map(f => `<div class="fact"><div class="fact__v">${esc(f.v)}</div><div class="fact__t">${esc(f.t)}</div></div>`).join("");
+
+$("#services-grid").innerHTML = SERVICES.map(s => `
+  <article class="svc reveal">
+    <span class="svc__icon">${ic(s.icon)}</span>
+    <h3 class="h3">${esc(s.title)}</h3>
+    <div class="svc__price">${esc(s.price)}</div>
+    <div class="svc__term">${esc(s.term)}</div>
+    <ul class="svc__list">${s.includes.map(i => `<li>${ic("i-check")}${esc(i)}</li>`).join("")}</ul>
+    <a href="#calculator" class="btn btn--dark svc__cta">Узнать стоимость ${ic("i-arrow")}</a>
+  </article>`).join("");
+
+$("#portfolio-grid").innerHTML = PROJECTS.map((p, i) => `
+  <article class="proj reveal" data-proj="${i}">
+    <div class="proj__img">
+      <img src="${p.img}" alt="${esc(p.jk)}, ${esc(p.type)}" loading="lazy"/>
+      <span class="proj__jk">${ic("i-pin")} ${esc(p.jk)}</span>
+    </div>
+    <div class="proj__body">
+      <div class="proj__type">${esc(p.type)}</div>
+      <div class="proj__stats">
+        <div class="stat"><div class="stat__l">Площадь</div><div class="stat__v">${esc(p.area)}</div></div>
+        <div class="stat"><div class="stat__l">Срок</div><div class="stat__v">${esc(p.term)}</div></div>
+        <div class="stat"><div class="stat__l">Бюджет</div><div class="stat__v">${esc(p.budget)}</div></div>
       </div>
-    </article>`).join('');
+      <p class="proj__task">${esc(p.task)}</p>
+      <button class="proj__cta">${ic("i-eye")} Смотреть проект</button>
+    </div>
+  </article>`).join("");
 
-  $('#adv-grid').innerHTML = ADV.map((a) => `
-    <div class="card adv reveal">
-      <span class="ic-box accent"><svg class="ic"><use href="#${a.icon}"/></svg></span>
-      <h3>${esc(a.title)}</h3>
-      <p>${esc(a.desc)}</p>
-    </div>`).join('');
+$("#process-grid").innerHTML = PROCESS.map((s, i) => `
+  <div class="step reveal">
+    <div class="step__head"><span class="step__icon">${ic(s.icon)}</span><span class="step__n">Шаг ${String(i + 1).padStart(2, "0")}</span></div>
+    <h3 class="h3">${esc(s.t)}</h3>
+    <p>${esc(s.d)}</p>
+  </div>`).join("");
 
-  $('#port-grid').innerHTML = PROJECTS.map((p, i) => `
-    <button class="card proj reveal" data-proj="${i}">
-      <div class="img">
-        <img src="${p.img}" alt="${esc(p.title)}" loading="lazy" width="1200" height="900"/>
-        <div class="ov"><span><svg class="ic-sm"><use href="#i-eye"/></svg>Подробнее</span></div>
+$("#team-grid").innerHTML = TEAM.map(t => `
+  <div class="team reveal">
+    <span class="team__icon">${ic(t.icon)}</span>
+    <h3 class="h3">${esc(t.role)}</h3>
+    <p>${esc(t.desc)}</p>
+  </div>`).join("");
+
+$("#contract-grid").innerHTML = CONTRACT.map(c => `
+  <div class="contract-card reveal">
+    <span class="contract-card__icon">${ic(c.icon)}</span>
+    <div><h3 class="h3">${esc(c.t)}</h3><p>${esc(c.d)}</p></div>
+  </div>`).join("");
+
+$("#reviews-grid").innerHTML = REVIEWS.map(r => `
+  <div class="review reveal">
+    <p>«${esc(r.text)}»</p>
+    <div class="review__foot">
+      <div class="avatar">${esc(r.name[0])}</div>
+      <div><div class="review__name">${esc(r.name)}</div><div class="review__area">${esc(r.area)}</div></div>
+    </div>
+  </div>`).join("");
+
+$("#faq-list").innerHTML = FAQ.map((f, i) => `
+  <div class="faq__item reveal ${i === 0 ? "is-open" : ""}">
+    <button class="faq__q">${esc(f.q)} ${ic("i-chev")}</button>
+    <div class="faq__a">${esc(f.a)}</div>
+  </div>`).join("");
+
+$("#copy").textContent = `© ${new Date().getFullYear()} ГородСтрой Pro. Все права защищены.`;
+
+// === BEHAVIOR ===
+// Header scroll
+const header = $("#header");
+const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 16);
+onScroll();
+window.addEventListener("scroll", onScroll, { passive: true });
+
+// Reveal
+const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add("is-visible")), { threshold: 0.12 });
+$$(".reveal").forEach(el => io.observe(el));
+
+// Mobile nav
+const mnav = $("#mobileNav");
+const openMnav = () => { mnav.hidden = false; document.body.style.overflow = "hidden"; };
+const closeMnav = () => { mnav.hidden = true; document.body.style.overflow = ""; };
+$("#burger").addEventListener("click", openMnav);
+$("#burgerClose").addEventListener("click", closeMnav);
+$$("#mobileNav a").forEach(a => a.addEventListener("click", closeMnav));
+
+// Smooth scroll for hash links
+$$('a[href^="#"]').forEach(a => a.addEventListener("click", e => {
+  const id = a.getAttribute("href");
+  if (id.length > 1) {
+    const el = $(id);
+    if (el) { e.preventDefault(); el.scrollIntoView({ behavior: "smooth", block: "start" }); }
+  }
+}));
+
+// FAQ
+$$(".faq__q").forEach(q => q.addEventListener("click", () => q.closest(".faq__item").classList.toggle("is-open")));
+
+// Lead modal
+const leadModal = $("#leadModal");
+const leadTitle = $("#leadTitle");
+function openLead(title) {
+  leadTitle.textContent = title || "Оставить заявку";
+  const form = leadModal.querySelector(".lead-form");
+  resetLeadForm(form);
+  leadModal.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+function closeModal(m) { m.hidden = true; document.body.style.overflow = ""; }
+$$("[data-open-lead]").forEach(b => b.addEventListener("click", () => {
+  if (mnav && !mnav.hidden) closeMnav();
+  openLead(b.dataset.openLead);
+}));
+$$("[data-close]").forEach(el => el.addEventListener("click", e => {
+  const m = e.target.closest(".modal"); if (m) closeModal(m);
+}));
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") $$(".modal").forEach(m => { if (!m.hidden) closeModal(m); });
+});
+
+// Project modal
+const pModal = $("#projectModal");
+const pBody = $("#projectBody");
+$$(".proj").forEach(card => card.addEventListener("click", e => {
+  if (e.target.closest("a")) return;
+  const p = PROJECTS[+card.dataset.proj];
+  pBody.innerHTML = `
+    <div class="pm__img">
+      <img src="${p.img}" alt="${esc(p.jk)}"/>
+      <span class="pm__jk">${ic("i-pin")} ${esc(p.jk)}</span>
+    </div>
+    <div class="pm__body">
+      <div class="pm__type">${esc(p.type)}</div>
+      <h3 class="pm__title">${esc(p.jk)} · ${esc(p.area)}</h3>
+      <div class="pm__stats">
+        <div class="pm__stat"><div class="pm__stat-l">Площадь</div><div class="pm__stat-v">${esc(p.area)}</div></div>
+        <div class="pm__stat"><div class="pm__stat-l">Срок</div><div class="pm__stat-v">${esc(p.term)}</div></div>
+        <div class="pm__stat"><div class="pm__stat-l">Бюджет</div><div class="pm__stat-v">${esc(p.budget)}</div></div>
       </div>
-      <div class="pad">
-        <div class="eyebrow">${esc(p.meta)}</div>
-        <h3>${esc(p.title)}</h3>
-      </div>
-    </button>`).join('');
-
-  $('#steps-grid').innerHTML = STEPS.map((s, i) => `
-    <div class="card step reveal">
-      <div class="ln"><span class="n">${s.n}</span>${i < STEPS.length - 1 ? '<span class="ln-bar"></span>' : ''}</div>
-      <h3>${esc(s.t)}</h3>
-      <p>${esc(s.d)}</p>
-    </div>`).join('');
-
-  $('#rev-grid').innerHTML = REVIEWS.map((r) => `
-    <div class="card rev reveal">
-      <div class="stars">${'<svg class="ic-sm"><use href="#i-star"/></svg>'.repeat(5)}</div>
-      <p>«${esc(r.t)}»</p>
-      <div class="rev-foot">
-        <div class="avatar">${esc(r.n[0])}</div>
-        <div><div class="rev-name">${esc(r.n)}</div><div class="rev-area">${esc(r.a)}</div></div>
-      </div>
-    </div>`).join('');
-
-  $('#faq-list').innerHTML = FAQ.map((f, i) => `
-    <div class="faq reveal${i === 0 ? ' open' : ''}">
-      <button class="faq-q" data-faq>${esc(f.q)}<svg class="ic chev"><use href="#i-chev"/></svg></button>
-      <div class="faq-a">${esc(f.a)}</div>
-    </div>`).join('');
-
-  $('#year').textContent = new Date().getFullYear();
-
-  // ===== HEADER SCROLL =====
-  const hdr = $('#header');
-  const onScroll = () => hdr.classList.toggle('scrolled', window.scrollY > 16);
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  // ===== REVEAL =====
-  const io = new IntersectionObserver(
-    (entries) => entries.forEach((e) => e.isIntersecting && (e.target.classList.add('is-visible'), io.unobserve(e.target))),
-    { threshold: 0.12 }
-  );
-  $$('.reveal').forEach((el) => io.observe(el));
-
-  // ===== SCROLL TO ANCHOR =====
-  const scrollTo = (sel) => {
-    const el = $(sel);
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-  document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-scroll]');
-    if (t) { e.preventDefault(); scrollTo(t.dataset.scroll); }
-    const a = e.target.closest('a[href^="#"]');
-    if (a && !t) {
-      const href = a.getAttribute('href');
-      if (href.length > 1) { e.preventDefault(); scrollTo(href); closeNav(); }
-    }
+      <div class="pm__h">Задача клиента</div>
+      <p class="pm__task">${esc(p.task)}</p>
+      <button class="btn btn--accent" data-open-lead="Хочу такой же ремонт" style="margin-top:28px">Получить расчёт по моей квартире ${ic("i-arrow")}</button>
+    </div>`;
+  pBody.querySelector("[data-open-lead]").addEventListener("click", ev => {
+    closeModal(pModal);
+    openLead(ev.currentTarget.dataset.openLead);
   });
+  pModal.hidden = false;
+  document.body.style.overflow = "hidden";
+}));
 
-  // ===== MOBILE NAV =====
-  const mnav = $('#mnav');
-  const openNav = () => { mnav.hidden = false; document.body.style.overflow = 'hidden'; };
-  const closeNav = () => { mnav.hidden = true; document.body.style.overflow = ''; };
-  $$('[data-open-nav]').forEach((b) => b.addEventListener('click', openNav));
-  $$('[data-close-nav]').forEach((b) => b.addEventListener('click', closeNav));
-  mnav.addEventListener('click', (e) => { if (e.target.closest('[data-mnav]')) closeNav(); });
+// Calculator
+const calc = $("#calc");
+const calcSent = $("#calcSent");
+const calcEst = $("#calcEst");
+const calcValue = $("#calcValue");
+function updateEst() {
+  const rate = +calc.format.value;
+  const area = +calc.area.value || 0;
+  if (area > 0) {
+    calcEst.hidden = false;
+    calcValue.textContent = (area * rate).toLocaleString("ru-RU") + " ₽";
+  } else {
+    calcEst.hidden = true;
+  }
+}
+calc.format.addEventListener("change", updateEst);
+calc.area.addEventListener("input", updateEst);
+calc.addEventListener("submit", e => {
+  e.preventDefault();
+  calc.hidden = true;
+  calcSent.hidden = false;
+  calcSent.classList.add("is-visible");
+});
 
-  // ===== FAQ =====
-  document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-faq]');
-    if (t) t.parentElement.classList.toggle('open');
-  });
-
-  // ===== PROJECT MODAL =====
-  const projModal = $('#proj-modal');
-  const openProj = (i) => {
-    const p = PROJECTS[i];
-    $('#proj-img').src = p.img;
-    $('#proj-img').alt = p.title;
-    $('#proj-meta').textContent = p.meta;
-    $('#proj-title').textContent = p.title;
-    $('#proj-desc').textContent = p.desc;
-    projModal.hidden = false;
-    document.body.style.overflow = 'hidden';
-  };
-  const closeProj = () => { projModal.hidden = true; document.body.style.overflow = ''; };
-  document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-proj]');
-    if (t) openProj(+t.dataset.proj);
-    if (e.target.closest('[data-close-proj]')) closeProj();
-    if (e.target.closest('[data-open-lead-from-proj]')) { closeProj(); openLead(); }
-  });
-
-  // ===== LEAD MODAL =====
-  const leadModal = $('#lead-modal');
-  const openLead = () => { leadModal.hidden = false; document.body.style.overflow = 'hidden'; };
-  const closeLead = () => { leadModal.hidden = true; document.body.style.overflow = ''; };
-  $$('[data-open-lead]').forEach((b) => b.addEventListener('click', openLead));
-  $$('[data-close-lead]').forEach((b) => b.addEventListener('click', closeLead));
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { closeProj(); closeLead(); closeNav(); }
-  });
-
-  // ===== FORMS =====
-  document.querySelectorAll('[data-leadform]').forEach((form) => {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      form.reset();
-      const ok = document.createElement('div');
-      ok.className = 'calc-thanks';
-      ok.style.padding = '1.75rem';
-      ok.innerHTML = `<div class="check-circle"><svg class="ic"><use href="#i-check"/></svg></div><h3>Спасибо! Заявка принята</h3><p class="muted" style="margin-top:.5rem">Специалист свяжется с вами в ближайшее время.</p>`;
-      form.replaceWith(ok);
-      setTimeout(() => { if (!leadModal.hidden) closeLead(); }, 2500);
-    });
-  });
-
-  $('#calc-form').addEventListener('submit', (e) => {
+// Lead forms
+function resetLeadForm(form) {
+  form.reset();
+  const ok = form.querySelector(".form-ok");
+  if (ok) ok.remove();
+  $$("input,textarea,button,p", form).forEach(el => el.style.display = "");
+}
+$$("[data-lead-form]").forEach(form => {
+  form.addEventListener("submit", e => {
     e.preventDefault();
-    $('#calc-form').hidden = true;
-    $('#calc-thanks').hidden = false;
+    $$("input,textarea,button,.hint", form).forEach(el => el.style.display = "none");
+    const dark = form.classList.contains("lead-form--dark");
+    const ok = document.createElement("div");
+    ok.className = "form-ok";
+    ok.style.cssText = `background:${dark ? "rgba(255,255,255,.08)" : "var(--muted)"};border-radius:18px;padding:28px;text-align:center;color:${dark ? "#fff" : "var(--graphite)"}`;
+    ok.innerHTML = `<div style="margin:0 auto 16px;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--accent);color:#fff;font-size:24px">${ic("i-check")}</div>
+      <div style="font-family:var(--font-display);font-size:18px;font-weight:700">Спасибо! Заявка принята</div>
+      <div style="margin-top:8px;font-size:14px;color:${dark ? "rgba(255,255,255,.7)" : "var(--soft)"}">Инженер свяжется с вами в ближайшее время.</div>`;
+    form.appendChild(ok);
+    const m = form.closest(".modal");
+    if (m) setTimeout(() => closeModal(m), 2500);
   });
-})();
+});
